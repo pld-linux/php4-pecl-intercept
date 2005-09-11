@@ -1,24 +1,24 @@
 %define		_modname	intercept
 %define		_status		alpha
+%define		_sysconfdir	/etc/php4
+%define		extensionsdir	%{_libdir}/php4
 
 Summary:	%{_modname} - intercept function/method calls
 Summary(pl):	%{_modname} - przechwytywanie wywo³añ funkcji/metod
 Name:		php4-pecl-%{_modname}
 Version:	0.2.0
-Release:	1
+Release:	2
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
 # Source0-md5:	fd5efb4a6d54047f9e935d975403c3ba
 URL:		http://pecl.php.net/package/intercept/
-BuildRequires:	libtool
 BuildRequires:	php4-devel >= 4.0.0
-Requires:	php-common
+BuildRequires:	rpmbuild(macros) >= 1.230
+%requires_eq_to php4-common php4-devel
+Requires:	%{_sysconfdir}/conf.d
 Obsoletes:	php-pear-%{_modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_sysconfdir	/etc/php4
-%define		extensionsdir	%{_libdir}/php4
 
 %description
 Allows the user to have a user-space function called when the specified
@@ -44,22 +44,29 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{extensionsdir}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/conf.d,%{extensionsdir}}
 
 install %{_modname}-%{version}/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_modname}.ini
+; Enable %{_modname} extension module
+extension=%{_modname}.so
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{_sbindir}/php4-module-install install %{_modname} %{_sysconfdir}/php-cgi.ini
+[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
+[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
 
-%preun
-if [ "$1" = "0" ]; then
-	%{_sbindir}/php4-module-install remove %{_modname} %{_sysconfdir}/php-cgi.ini
+%postun
+if [ "$1" = 0 ]; then
+	[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
+	[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc %{_modname}-%{version}/{CREDITS,EXPERIMENTAL}
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so

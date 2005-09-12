@@ -21,8 +21,9 @@ Obsoletes:	php-pear-%{_modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Allows the user to have a user-space function called when the specified
-function is called. Support for class/object methods will be added later.
+Allows the user to have a user-space function called when the
+specified function is called. Support for class/object methods will be
+added later.
 
 In PECL status of this extension is: %{_status}.
 
@@ -68,5 +69,5 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc %{_modname}-%{version}/{CREDITS,EXPERIMENTAL}
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_modname}.ini
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so

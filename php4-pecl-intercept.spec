@@ -6,15 +6,15 @@
 Summary:	%{_modname} - intercept function/method calls
 Summary(pl):	%{_modname} - przechwytywanie wywo³añ funkcji/metod
 Name:		php4-pecl-%{_modname}
-Version:	0.2.0
-Release:	3
+Version:	0.3.0
+Release:	0.1
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
-# Source0-md5:	fd5efb4a6d54047f9e935d975403c3ba
+# Source0-md5:	442121f4043984cdde213918266a925c
 URL:		http://pecl.php.net/package/intercept/
 BuildRequires:	php4-devel >= 4.0.0
-BuildRequires:	rpmbuild(macros) >= 1.248
+BuildRequires:	rpmbuild(macros) >= 1.254
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
 Obsoletes:	php-pear-%{_modname}

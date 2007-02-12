@@ -4,7 +4,7 @@
 %define		extensionsdir	%{_libdir}/php4
 
 Summary:	%{_modname} - intercept function/method calls
-Summary(pl):	%{_modname} - przechwytywanie wywo≥aÒ funkcji/metod
+Summary(pl.UTF-8):   %{_modname} - przechwytywanie wywo≈Ça≈Ñ funkcji/metod
 Name:		php4-pecl-%{_modname}
 Version:	0.3.0
 Release:	0.1
@@ -27,10 +27,10 @@ added later.
 
 In PECL status of this extension is: %{_status}.
 
-%description -l pl
-Pozwala uøytkownikowi na okre∂lenie funkcji w przestrzeni uøytkownika
-wywo≥ywanej, gdy okre∂lona funkcja jest wywo≥ana. Wsparcie dla metod
-klas/obiektÛw zostanie dodane w pÛºniejszych wersjach.
+%description -l pl.UTF-8
+Pozwala u≈ºytkownikowi na okre≈õlenie funkcji w przestrzeni u≈ºytkownika
+wywo≈Çywanej, gdy okre≈õlona funkcja jest wywo≈Çana. Wsparcie dla metod
+klas/obiekt√≥w zostanie dodane w p√≥≈∫niejszych wersjach.
 
 To rozszerzenie ma w PECL status: %{_status}.
 

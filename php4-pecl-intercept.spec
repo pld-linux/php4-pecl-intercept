@@ -4,7 +4,7 @@
 %define		extensionsdir	%{_libdir}/php4
 
 Summary:	%{_modname} - intercept function/method calls
-Summary(pl.UTF-8):   %{_modname} - przechwytywanie wywołań funkcji/metod
+Summary(pl.UTF-8):	%{_modname} - przechwytywanie wywołań funkcji/metod
 Name:		php4-pecl-%{_modname}
 Version:	0.3.0
 Release:	0.1
